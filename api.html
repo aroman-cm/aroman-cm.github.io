@@ -1,0 +1,65 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway" rel="stylesheet">
+</head>
+<h2 id="mcetoc_1ckupjtil0" style="text-align: center;">ChartMogul<br /><br /></h2>
+<form method="post">
+  <table cellpadding="2" align="center">
+    <tbody>
+      <tr>
+        <td>token:</td>
+        <td><input type="text" name="token1" id="token1" value="beed5c7cd00ecea4c74f07784044498a"/></td>
+      </tr>
+      <tr>
+        <td>key:</td>
+        <td><input type="text" name="key1" id="key1" value="baeb03e9e91becb9ec2ccfbb100b4702" /></td>
+      </tr>
+      <tr>
+          <td colspan="2" align="right"><input type="button" value="Submit" onclick="CallWebAPI();" /></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div id="response" style="font-family: 'PT Sans', sans-serif;"></div>
+
+
+<script language="Javascript">
+        var userName = document.getElementById('token1').value;
+        var passWord = document.getElementById('key1').value;
+        
+        function authenticateUser(user, password)
+        {
+            var token = user + ":" + password;
+        
+            // Should i be encoding this value????? does it matter???
+            // Base64 Encoding -> btoa
+            var hash = btoa(token); 
+        
+            return "Basic " + hash;
+        }
+        
+        function CallWebAPI() {
+        
+            // New XMLHTTPRequest
+            var request = new XMLHttpRequest();
+            request.open("GET", "https://api.chartmogul.com/v1/customers", false);
+            request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  
+            request.send();
+            // view request status
+            //alert(request.status);
+            
+            response.innerHTML = request.responseText;
+            
+            //var json = request.responseText;
+            //var str = JSON.stringify(json, null, 2); // spacing level = 2
+            //response.innerHTML = str;
+            
+            
+            
+            
+        }
+        
+    </script>
